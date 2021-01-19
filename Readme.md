@@ -28,15 +28,17 @@ market_commodities.ini: freelancer game file, data/missions/market_commodities.i
 goods.ini: freelancer game file, data/missons/goods.ini *citation needed
 dump.csv: the base to base travel times exported by flcomp
 
-**Changelog**
-Version .01: initial program
-Version .02: update_econ.py now inserts new sell points wherever you tell to start routes from in Econ_changes.txt. 
 
 
 **Further Steps**
-0: Add whatever the economy team asks for
-1: Build a function that will populate a blank market_commodities.ini with bases.
-2: wrap in previous technology for sorting buying bases to the closest sellers. 
-3: Improve this with a gui
+* Add whatever the economy team asks for
+* Build a function that will populate a blank market_commodities.ini with bases.
+* wrap in previous technology for sorting buying bases to the closest sellers. 
+* update the bat and paths to find a specified repo
+* Improve this with a gui
 
 
+**Changelog**
+1. Version .01: initial program
+2. Version .02: update_econ.py now inserts new sell points wherever you tell to start routes from in Econ_changes.txt. 
+3. Version .03 includes a clickable bat for ease of use. 
