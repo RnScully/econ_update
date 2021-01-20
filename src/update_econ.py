@@ -29,8 +29,9 @@ def find_base_section(base_code, lines):
     start(int): index of start point of the section for the base_code passed in
     end(int): index of endpoint of the section for the base_code passed in. 
     '''
-
-    start = lines.index('base = '+ base_code.lower()+'\n')
+    lowers = [line.lower() for line in lines]
+    
+    start = lowers.index('base = ' + base_code+'\n') 
     try:
         end = lines[start:].index('[BaseGood]\n')+start
     except ValueError:
@@ -143,8 +144,10 @@ def generate_multiple(lines, base_price, end_code, start_code, crsec, commodity,
     '''
     # finds the section in market_commodities relevant to the buying base. 
     start, end = find_base_section(end_code, lines)
-
+    
+    
     for line in lines[start: end]: #then finds the specific line relevant to the commodity in question
+        
         if commodity in line:
             buyingidx = lines.index(line)
             buyingval = line
@@ -160,6 +163,7 @@ def generate_multiple(lines, base_price, end_code, start_code, crsec, commodity,
     sellprice = base_price * float(sellingval.split().pop()) #generate actuall price the start of route sells at. 
     #construct multiple from secs*crsec + base
     intended_price = (secs*crsec/100)+sellprice
+    
     return intended_price/base_price, buyingval, buyingidx
 
 def update_lines(commodity, start_base, end_base, lines, crsec):
@@ -188,7 +192,7 @@ def update_lines(commodity, start_base, end_base, lines, crsec):
 
 
     buy = buyingval.split()
-    buy[8]= str(multiple)
+    buy[8]= str(multiple)+'\n'
     lines[buyingidx]=' '.join(buy)
     return lines
 
@@ -229,24 +233,25 @@ def update_from_changes(changes, lines):
 
     return lines
 
-def check_for_sell_points(changes, distances, base_code_lookup):
+def check_for_sell_points(changes, distances, base_code_lookup,lines):
     '''
-    finds all the bases in lines that sell the base, and append the travel time to them, 
+    finds all the bases in lines that sell the commodity, and append the travel time to them, 
     to make sure there isn't a better route than the one being suggested. 
-    Marketgood = commodity, 0, 0, 150, 500, 0, multiple\n denotes a commodity that sells. 
+    MarketGood = commodity, 0, 0, 150, 500, 0, multiple\n denotes a commodity that sells. 
     ++++++++
     Parameters
     Changes: config file of changes needed
     distances: pandas dataframe of base to base travel times. 
     +++++++
     Returns
-    changes, config file trimmed of the in-error requests
+    changes, unchanged. 
     errors: list of bases that have closer than expected routes. 
     '''
     report = []
     for line in changes:
         bases_that_sell = []
         entries = line.split(',')
+        
         commodity = entries[2] #get the commodity in question from changes. 
         endpoint = entries[1].lstrip() 
         endpoint = base_code_lookup[endpoint].lower()#format endpoint for distances
@@ -254,33 +259,37 @@ def check_for_sell_points(changes, distances, base_code_lookup):
         start_base = base_code_lookup[entries[0]].lower()
         
         
-        selling_base_codes = [code.split(' ')[2].strip('\n').lower() for code in bases_that_sell] #format the bases_that_sell for distances
 
-        string = 'Marketgood ='+commodity+', 0, -1, 150, 500, 0,' #format a line so that it matches the lines that sell
+
+        #selling_base_codes = [code.split(' ')[2].strip('\n').lower() for code in bases_that_sell] #format the bases_that_sell for distances
+        
+        string = 'MarketGood = '+commodity+', 0, -1, 150, 500, 0,' #format a line so that it matches the lines that sell
+               
         selling_idx = [count for count, value in enumerate(lines) if string in value] #find the location of all the selling lines.
         base_good_idx = [count for count, value in enumerate(lines) if 'BaseGood' in value] #the places each entry of market_commodities starts
-
+        
         for salepoint in selling_idx:
             for idx in base_good_idx:
                 if salepoint-idx < 0:
                     break
                 nameidx = idx
                 #find closest(and lowest) value in base_good_idx that matches X
+            
             bases_that_sell.append(lines[nameidx+1])
         
         selling_base_codes = [code.split(' ')[2].strip('\n').lower() for code in bases_that_sell] #format the bases_that_sell for distances
-
+        
         if start_base not in selling_base_codes:
+        
             report.append(base_name_lookup[start_base.lower()]+' inserted as a producer of'+commodity+' at multiple 1')
             
         
         mask = distances[distances['end']==endpoint] #get just the bases in distances that end at the endpoint base
         short = mask[mask['start'].isin(selling_base_codes)] #sort out any base not in selling_base_codes in the start column. 
+        #print(short)
         start_base = base_code_lookup[changes[0].split(',')[0]].lower()
         closest = short.min()['start']
 
-        
-        
         if closest != start_base:
             report.append(line + ' is not the shortest path, '+str(closest)+ ' is closer to'+ endpoint.capitalize())
 
@@ -305,15 +314,15 @@ def insert_sellpoint(lines, errors):
              
     for string in insertions:
         base_idx = string.find(' inserted')
-        commodity_start = base_idx+27
+        commodity_start = base_idx+26
         commodity_end = string.find(' at multiple')
 
         base_code = base_code_lookup[string[0:base_idx]]
         commodity = string[commodity_start:commodity_end]
-
+        
         try:
             start, end = find_base_section(base_code, lines)
-            marketgood_line = 'Marketgood = '+commodity+', 0, -1, 150, 500, 0, 1\n'
+            marketgood_line = 'MarketGood = '+commodity+', 0, -1, 150, 500, 0, 1\n'
             lines.insert(start+2, marketgood_line)
 
         except ValueError:
@@ -352,7 +361,7 @@ if __name__ == "__main__":
     #run through the Econ_changes.txt file and apply those changes
     with open(config) as template:
         changes = template.readlines()
-    changes, errors = check_for_sell_points(changes, distances, base_code_lookup)
+    changes, errors = check_for_sell_points(changes, distances, base_code_lookup, lines)
     lines = insert_sellpoint(lines, errors)
     update_from_changes(changes, lines)
     for line in errors:
