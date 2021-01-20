@@ -11,8 +11,7 @@ It should read:
 Start Base, End Base, Commodity, CR/sec
 
 So a line of the Econ_changes.txt ought read:
-"Graves Station, Planet New London, commodity_gold, 300"
-
+`Graves Station, Planet New London, commodity_gold, 300`
 
 
 To run Econ_changes, open your command prompt and navigate to the containing folder, and run update_econ.py
@@ -20,13 +19,13 @@ To run Econ_changes, open your command prompt and navigate to the containing fol
 
 **Dependencies:**
 
-Python with Pandas. (installing python from anaconda will give you python with pandas)
-market_commodities, dump.csv and goods.ini in the same folder as update_econ.py
-Properly formatted Econ_changes.txt
+* Python with Pandas. (installing python from anaconda will give you python with pandas)
 
-market_commodities.ini: freelancer game file, data/missions/market_commodities.ini
-goods.ini: freelancer game file, data/missons/goods.ini *citation needed
-dump.csv: the base to base travel times exported by flcomp
+* Properly formatted Econ_changes.txt
+
+* market_commodities.ini: freelancer game file, data/equipment/market_commodities.ini
+* goods.ini: freelancer game file, data/equipment/goods.ini 
+* dump.csv: the base to base travel times exported by flcomp
 
 
 

@@ -282,7 +282,7 @@ def check_for_sell_points(changes, distances, base_code_lookup):
         
         
         if closest != start_base:
-            report.append(line + ' is not the shortest path, '+closest+ ' is closer to'+ base_name_lookup[endpoint.capitalize()])
+            report.append(line + ' is not the shortest path, '+str(closest)+ ' is closer to'+ endpoint.capitalize())
 
     return changes, report
 

@@ -1,1 +1,33 @@
-Graves Station, Planet New London, commodity_gold, 100000
+The Ring,Planet Tomioka Blood Dragon Outpost,Black Market Munitions,300
+Kreuzberg Depot,Planet Tomioka Blood Dragon Outpost,Black Market Munitions,300
+Briancon Station,Beauvais Production Facility,Hydrocarbons,300
+Golden Dragon Casino,Planet Tomioka Blood Dragon Outpost,Black Market Light Arms,300
+Vogtland Base,Planet New Paris Saint-Germain,Blood Diamonds,300
+Beauvais Production Facility,Briancon Station,Petrochemicals,300
+Canberra Star City, Planet Tomioka Blood Dragon Outpost",Black Market Munitions,300
+Morioka Base,Planet Tomioka Blood Dragon Outpost,Black Market Light Arms,300
+Detroit Munitions, Planet Tomioka Blood Dragon Outpost,Black Market Light Arms,300
+Planet Pittsburgh Xeno Hideout, Planet Tomioka Blood Dragon Outpost,Black Market Light Arms,300
+Ouray Base,Planet Tomioka Blood Dragon Outpost,Black Market Light Arms,300
+Rochester Base,Planet Tomioka Blood Dragon Outpost,Black Market Light Arms,300
+Briancon Station,Beauvais Production Facility,Promethene,300
+The Ring,Beaumont Depot,Black Market Munitions,300
+Beauvais Production Facility,Planet Quillan,Petrochemicals,300
+Vierzon Mining Facility,Holman Outpost,Tantalum,300
+Noshima Freeport,Planet Tomioka Blood Dragon Outpost,Black Market Light Arms,300
+The Ring,Montelimar Base,Black Market Munitions,300
+Planet Marseille,Planet New Berlin,Nox,300
+The Ring,Valence Base,Black Market Munitions,300
+The Ring,Bourbon Base,Black Market Munitions,300
+Boulogne Base,Narbonne Base,Human Organs,300
+The Ring,Narbonne Base,Black Market Munitions,300
+The Ring,Avon Hideout,Black Market Munitions,300
+Vogtland Base,Luxury Liner Belleville,Blood Diamonds,300
+Detroit Munitions,Kirkwall Base,Black Market Light Arms,300
+Beauvais Production Facility,Vierzon Mining Facility,Petrochemicals,300
+Heisenberg Research Station,Syracuse Station,Human Organs,300
+Planet Pittsburgh Xeno Hideout,Kirkwall Base,Black Market Light Arms,300
+Boulogne Base,Luxury Liner Belleville,Human Organs,300
+Planet Marseille,Saint-Quentin Space Colony,Nox,300
+Lodeve Space Port,Beauvais Production Facility,Drill Bits,300
+Sarcelles Shipping Facility,Beauvais Production Facility,Cracking Catalysts,300
