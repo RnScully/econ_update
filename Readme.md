@@ -35,6 +35,8 @@ To run Econ_changes, open your command prompt and navigate to the containing fol
 * wrap in previous technology for sorting buying bases to the closest sellers. 
 * update the bat and paths to find a specified repo
 * Improve this with a gui
+* create handles so this can activate and use trade_volumizer
+* rebuild get_data in less of a confusing and wild way
 
 
 **Changelog**

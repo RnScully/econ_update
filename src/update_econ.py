@@ -14,7 +14,7 @@ def lookup(bases):
     base_code_lookup (dict): keys as names, codes as values
     base_name_lookup (dict): keys as codes, names as values
     '''
-    base_code_lookup = {base['Name'].strip('\n').strip(';'): base['base_code'].strip('\n').strip(';') for base in bases}
+    base_code_lookup = {base['Name'].strip('\n').strip(';'): base['base_code'].strip('\n').strip(';').lower() for base in bases}
     base_name_lookup = {v: k for k, v in base_code_lookup.items()}
     return base_code_lookup, base_name_lookup
 
@@ -30,7 +30,7 @@ def find_base_section(base_code, lines):
     end(int): index of endpoint of the section for the base_code passed in. 
     '''
 
-    start = lines.index('base = '+ base_code.capitalize()+'\n')
+    start = lines.index('base = '+ base_code.lower()+'\n')
     try:
         end = lines[start:].index('[BaseGood]\n')+start
     except ValueError:
@@ -271,7 +271,7 @@ def check_for_sell_points(changes, distances, base_code_lookup):
         selling_base_codes = [code.split(' ')[2].strip('\n').lower() for code in bases_that_sell] #format the bases_that_sell for distances
 
         if start_base not in selling_base_codes:
-            report.append(base_name_lookup[start_base.capitalize()]+' inserted as a producer of'+commodity+' at multiple 1')
+            report.append(base_name_lookup[start_base.lower()]+' inserted as a producer of'+commodity+' at multiple 1')
             
         
         mask = distances[distances['end']==endpoint] #get just the bases in distances that end at the endpoint base
@@ -317,7 +317,7 @@ def insert_sellpoint(lines, errors):
             lines.insert(start+2, marketgood_line)
 
         except ValueError:
-            print(base+' is not in market commodities')
+            print(base_code+' is not in market commodities')
             continue
     return lines
 
